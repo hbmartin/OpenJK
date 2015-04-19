@@ -186,7 +186,7 @@ gentity_t *TossClientItems( gentity_t *self )
 		|| weapon == WP_MELEE )
 	{//never drop these
 	}
-	else if ( weapon > WP_SABER && weapon <= MAX_PLAYER_WEAPONS )//&& self->client->ps.ammo[ weaponData[weapon].ammoIndex ]
+	else if ( weapon > WP_SABER && weapon < WP_NUM_WEAPONS && playerUsableWeapons[weapon] )//&& self->client->ps.ammo[ weaponData[weapon].ammoIndex ]
 	{
 		self->s.weapon = WP_NONE;
 
@@ -264,11 +264,22 @@ gentity_t *TossClientItems( gentity_t *self )
 					dropped->count = 15;
 					break;
 				case WP_E5_CARBINE:
-				case WP_DC15S_CARBINE:
-				case WP_SONIC_BLASTER:
-				case WP_DC15A_RIFLE:
-				case WP_Z6_ROTARY:
 					dropped->count = 15;
+					break;
+				case WP_DC15S_CARBINE:
+					dropped->count = 15;
+					break;
+				case WP_Z6_ROTARY:
+					dropped->count = 20;
+					break;
+				case WP_DC15A_RIFLE:
+					dropped->count = 20;
+					break;
+				case WP_SONIC_BLASTER:
+					dropped->count = 20;
+					break;
+				default:
+					dropped->count = 0;
 					break;
 				}
 			}

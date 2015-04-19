@@ -1538,7 +1538,10 @@ void FireWeapon( gentity_t *ent, qboolean alt_fire )
 		{
 			WP_FireNoghriStick( ent );
 		}
-		//else does melee attack/damage/func
+		else
+		{
+			WP_Melee( ent );
+		}
 		break;
 			
 	case WP_SONIC_BLASTER:
