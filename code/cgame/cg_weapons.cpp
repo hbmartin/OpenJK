@@ -624,6 +624,21 @@ void CG_RegisterWeapon( int weaponNum ) {
 	case WP_TIE_FIGHTER:
 		theFxScheduler.RegisterEffect( "ships/imp_blastershot" );
 		break;
+			
+	case WP_E5_CARBINE:
+	case WP_DC15S_CARBINE:
+	case WP_SONIC_BLASTER:
+	case WP_DC15A_RIFLE:
+	case WP_Z6_ROTARY:
+		cgs.effects.blasterShotEffect			= theFxScheduler.RegisterEffect( "blaster/shot" );
+		theFxScheduler.RegisterEffect( "blaster/NPCshot" );
+		//		cgs.effects.blasterOverchargeEffect		= theFxScheduler.RegisterEffect( "blaster/overcharge" );
+		cgs.effects.blasterWallImpactEffect		= theFxScheduler.RegisterEffect( "blaster/wall_impact" );
+		cgs.effects.blasterFleshImpactEffect	= theFxScheduler.RegisterEffect( "blaster/flesh_impact" );
+		theFxScheduler.RegisterEffect( "blaster/deflect" );
+		theFxScheduler.RegisterEffect( "blaster/smoke_bolton" ); // note: this will be called game side
+		break;
+
 	}
 }
 
@@ -1435,6 +1450,29 @@ const char *weaponDesc[13] =
 "TRIP_MINE_DESC",
 "DET_PACK_DESC",
 "CONCUSSION_DESC",
+"MELEE_DESC",
+"ATST_MAIN_DESC",
+"ATST_SIDE_DESC",
+"STUN_BATON_DESC",
+"BLASTER_PISTOL_DESC",
+"EMPLACED_GUN_DESC",
+"BOT_LASER_DESC",
+"TURRET_DESC",
+"TIE_FIGHTER_DESC",
+"RAPID_CONCUSSION_DESC",
+"JAWA_DESC",
+"TUSKEN_RIFLE_DESC",
+"TUSKEN_STAFF_DESC",
+"SCEPTER_DESC",
+"NOGHRI_STICK_DESC",
+
+"SONIC_BLASTER_DESC",
+
+"E5_CARBINE_DESC",
+"DC15S_CARBINE_DESC",
+"DC15A_RIFLE_DESC",
+"Z6_ROTARY_DESC",
+>>>>>>> 1f0088cc... Weapons: supports arbitrary MAX_WEAPONS now
 };
 
 /*
@@ -1447,7 +1485,7 @@ Allows user to cycle through the various weapons currently owned and view the de
 void CG_DrawDataPadWeaponSelect( void )
 {
 	int				i;
-	int				weaponBitFlag,weaponCount,weaponSelectI;
+	int				weaponCount,weaponSelectI;
 	int				holdX;
 	int				sideLeftIconCnt,sideRightIconCnt;
 	int				holdCount,iconCnt;
@@ -1457,13 +1495,11 @@ void CG_DrawDataPadWeaponSelect( void )
 	// showing weapon select clears pickup item display, but not the blend blob
 	cg.itemPickupTime = 0;
 
-	weaponBitFlag = cg.snap->ps.stats[ STAT_WEAPONS ];
-
 	// count the number of weapons owned
 	weaponCount = 0;
 	for ( i = 1 ; i < 16 ; i++ )
 	{
-		if ( weaponBitFlag & ( 1 << i ) )
+		if ( cg.snap->ps.weapons[i] )
 		{
 			weaponCount++;
 		}
@@ -1548,7 +1584,7 @@ void CG_DrawDataPadWeaponSelect( void )
 			weaponSelectI = 13;
 		}
 
-		if ( !(weaponBitFlag & ( 1 << weaponSelectI )))	// Does he have this weapon?
+		if ( !(cg.snap->ps.weapons[weaponSelectI]))	// Does he have this weapon?
 		{
 			if ( weaponSelectI == WP_CONCUSSION )
 			{
@@ -1638,7 +1674,7 @@ void CG_DrawDataPadWeaponSelect( void )
 			weaponSelectI = 1;
 		}
 
-		if ( !(weaponBitFlag & ( 1 << weaponSelectI )))	// Does he have this weapon?
+		if ( !(cg.snap->ps.weapons[weaponSelectI]))	// Does he have this weapon?
 		{
 			if ( weaponSelectI == WP_CONCUSSION )
 			{
@@ -1778,7 +1814,6 @@ extern bool G_IsRidingTurboVehicle( gentity_t *ent );
 void CG_DrawWeaponSelect( void )
 {
 	int		i;
-	int		bits;
 	int		count;
 	int		smallIconSize,bigIconSize;
 	int		holdX,x,y,x2,y2,w2,h2,pad;
@@ -1807,15 +1842,14 @@ void CG_DrawWeaponSelect( void )
 	// showing weapon select clears pickup item display, but not the blend blob
 	//cg.itemPickupTime = 0;
 
-	bits = cg.snap->ps.stats[ STAT_WEAPONS ];
-
 	// count the number of weapons owned
 	count = 0;
 	isOnVeh = (G_IsRidingVehicle(cg_entities[0].gent)!=0);
  	for ( i = 1 ; i < MAX_PLAYER_WEAPONS ; i++ )
 	{
-		if ((bits & ( 1 << i ))  &&
-			(!isOnVeh || i==WP_NONE || i==WP_SABER || i==WP_BLASTER))
+		if ((cg.snap->ps.weapons[i])  &&
+			playerUsableWeapons[i] &&
+			(!isOnVeh || i==WP_NONE || i==WP_SABER || i==WP_BLASTER)) 
 		{
 			count++;
 		}
@@ -1897,7 +1931,7 @@ void CG_DrawWeaponSelect( void )
 			i = MAX_PLAYER_WEAPONS;
 		}
 
-		if ( !(bits & ( 1 << i )))	// Does he have this weapon?
+		if ( !(cg.snap->ps.weapons[i] && playerUsableWeapons[i]) )	// Does he have this weapon?
 		{
 			if ( i == WP_CONCUSSION )
 			{
@@ -1998,7 +2032,7 @@ void CG_DrawWeaponSelect( void )
 			i = 1;
 		}
 
-		if ( !(bits & ( 1 << i )))	// Does he have this weapon?
+		if ( !(cg.snap->ps.weapons[i] && playerUsableWeapons[i]))	// Does he have this weapon?
 		{
 			if ( i == WP_CONCUSSION )
 			{
@@ -2118,7 +2152,7 @@ qboolean CG_WeaponSelectable( int i, int original, qboolean dpMode )
 		}
 	}
 
-	if (!(cg.snap->ps.stats[ STAT_WEAPONS ] & ( 1 << i )))
+	if (!(cg.snap->ps.weapons[i]))
 	{
 		// Don't have this weapon to start with.
 		return qfalse;
@@ -2486,7 +2520,7 @@ void CG_ChangeWeapon( int num )
 		return;
 	}
 
-	if ( player->client != NULL && !(player->client->ps.stats[STAT_WEAPONS] & ( 1 << num )) )
+	if ( player->client != NULL && !(player->client->ps.weapons[num]) )
 	{
 		return;		// don't have the weapon
 	}
@@ -2574,9 +2608,9 @@ void CG_Weapon_f( void )
 
 	if ( num == WP_SABER )
 	{//lightsaber
-		if ( ! ( cg.snap->ps.stats[STAT_WEAPONS] & ( 1 << num ) ) )
+		if ( ! ( cg.snap->ps.weapons[num] ) )
 		{//don't have saber, try stun baton
-			if ( ( cg.snap->ps.stats[STAT_WEAPONS] & ( 1 << WP_STUN_BATON ) ) )
+			if ( ( cg.snap->ps.weapons[WP_STUN_BATON] ) )
 			{
 				num = WP_STUN_BATON;
 			}
@@ -3036,6 +3070,15 @@ void CG_MissileHitWall( centity_t *cent, int weapon, vec3_t origin, vec3_t dir, 
 	case WP_NOGHRI_STICK:
 		FX_NoghriShotWeaponHitWall( origin, dir );
 		break;
+			
+	case WP_E5_CARBINE:
+	case WP_DC15S_CARBINE:
+	case WP_SONIC_BLASTER:
+	case WP_DC15A_RIFLE:
+	case WP_Z6_ROTARY:
+		FX_BlasterWeaponHitWall( origin, dir );
+		break;
+
 	}
 }
 
@@ -3175,6 +3218,14 @@ void CG_MissileHitPlayer( centity_t *cent, int weapon, vec3_t origin, vec3_t dir
 
 	case WP_NOGHRI_STICK:
 		FX_NoghriShotWeaponHitPlayer( other, origin, dir, humanoid );
+		break;
+			
+	case WP_E5_CARBINE:
+	case WP_DC15S_CARBINE:
+	case WP_SONIC_BLASTER:
+	case WP_DC15A_RIFLE:
+	case WP_Z6_ROTARY:
+		FX_BlasterWeaponHitPlayer( other, origin, dir, humanoid );
 		break;
 	}
 }

@@ -4470,7 +4470,7 @@ void PM_SaberStartTransAnim( int saberAnimLevel, int anim, float *animSpeed, gen
 	}
 	if ( gent
 		&& gent->client
-		&& gent->client->ps.stats[STAT_WEAPONS]&(1<<WP_SCEPTER)
+		&& gent->client->ps.weapons[WP_SCEPTER]
 		&& gent->client->ps.dualSabers
 		&& saberAnimLevel == SS_DUAL
 		&& gent->weaponModel[1] )
@@ -5989,6 +5989,15 @@ void PM_TorsoAnimation( void )
 					//PM_SetAnim(pm,SETANIM_LEGS,BOTH_ATTACK2,SETANIM_FLAG_NORMAL);
 					break;
 
+				case WP_E5_CARBINE:
+				case WP_DC15S_CARBINE:
+				case WP_SONIC_BLASTER:
+				case WP_DC15A_RIFLE:
+				case WP_Z6_ROTARY:
+					PM_SetAnim(pm,SETANIM_TORSO,TORSO_WEAPONREADY3,SETANIM_FLAG_NORMAL);
+					//PM_SetAnim(pm,SETANIM_LEGS,BOTH_ATTACK2,SETANIM_FLAG_NORMAL);
+					break;
+
 				case WP_BLASTER:
 					PM_SetAnim(pm,SETANIM_TORSO,TORSO_WEAPONREADY3,SETANIM_FLAG_NORMAL);
 					//PM_SetAnim(pm,SETANIM_LEGS,BOTH_ATTACK2,SETANIM_FLAG_NORMAL);
@@ -6287,6 +6296,22 @@ void PM_TorsoAnimation( void )
 						PM_SetAnim(pm, SETANIM_TORSO, BOTH_STAND3, SETANIM_FLAG_NORMAL);
 					}
 					break;
+						
+				case WP_E5_CARBINE:
+				case WP_DC15S_CARBINE:
+				case WP_SONIC_BLASTER:
+				case WP_DC15A_RIFLE:
+				case WP_Z6_ROTARY:
+					if ( weaponBusy )
+					{
+						PM_SetAnim(pm,SETANIM_TORSO,TORSO_WEAPONREADY3,SETANIM_FLAG_NORMAL);
+					}
+					else
+					{
+						PM_SetAnim(pm,SETANIM_TORSO,TORSO_WEAPONIDLE3,SETANIM_FLAG_NORMAL);
+					}
+					break;
+
 
 				case WP_NOGHRI_STICK:
 					if ( weaponBusy )

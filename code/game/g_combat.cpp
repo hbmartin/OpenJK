@@ -257,8 +257,18 @@ gentity_t *TossClientItems( gentity_t *self )
 				case WP_STUN_BATON:
 					dropped->count = 20;
 					break;
-				default:
-					dropped->count = 0;
+				case WP_TUSKEN_RIFLE:
+					dropped->count = 20;
+					break;
+				case WP_NOGHRI_STICK:
+					dropped->count = 15;
+					break;
+				case WP_E5_CARBINE:
+				case WP_DC15S_CARBINE:
+				case WP_SONIC_BLASTER:
+				case WP_DC15A_RIFLE:
+				case WP_Z6_ROTARY:
+					dropped->count = 15;
 					break;
 				}
 			}
@@ -3856,7 +3866,7 @@ extern void RunEmplacedWeapon( gentity_t *ent, usercmd_t **ucmd );
 				}
 			}
 		}
-		if ( (self->client->ps.stats[STAT_WEAPONS]&(1<<WP_SCEPTER)) )
+		if ( (self->client->ps.weapons[WP_SCEPTER]) )
 		{
 			G_StopEffect( G_EffectIndex( "scepter/beam_warmup.efx" ), self->weaponModel[1], self->genericBolt1, self->s.number );
 			G_StopEffect( G_EffectIndex( "scepter/beam.efx" ), self->weaponModel[1], self->genericBolt1, self->s.number );
@@ -4734,7 +4744,7 @@ void PlayerPain( gentity_t *self, gentity_t *inflictor, gentity_t *other, const 
 		if ( blasterTest && chargerTest )
 		{//lost both side guns
 			//take away that weapon
-			self->client->ps.stats[STAT_WEAPONS] &= ~( 1 << WP_ATST_SIDE );
+			self->client->ps.weapons[WP_ATST_SIDE] = 0;
 			//switch to primary guns
 			if ( self->client->ps.weapon == WP_ATST_SIDE )
 			{

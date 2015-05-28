@@ -474,6 +474,121 @@ void WP_SaberAddG2SaberModels( gentity_t *ent, int specificSaberNum )
 	}
 }
 
+void WP_SaberAddHolsteredG2SaberModels( gentity_t *ent, int specificSaberNum )
+{
+	int saberNum = 0, maxSaber = 1;
+	if (!(ent && ent->client && (ent->client->ps.weapons[WP_SABER])))
+	{
+		return;
+	}
+	if ( specificSaberNum != -1 && specificSaberNum <= maxSaber )
+	{
+		saberNum = maxSaber = specificSaberNum;
+	}
+	for ( ; saberNum <= maxSaber; saberNum++ )
+	{
+		if ( ent->holsterModel[saberNum] > 0 )
+		{//we already have a weapon model in this slot
+			//remove it
+			gi.G2API_SetSkin( &ent->ghoul2[ent->holsterModel[saberNum]], -1, 0 );
+			gi.G2API_RemoveGhoul2Model( ent->ghoul2, ent->holsterModel[saberNum] );
+			ent->holsterModel[saberNum] = -1;
+		}
+		if ( saberNum > 0 )
+		{//second saber
+			if ( !ent->client->ps.dualSabers )
+			{//only have one saber or riding a vehicle and can only use one saber
+				return;
+			}
+		}
+		else if ( saberNum == 0 )
+		{//first saber
+			if ( ent->client->ps.saberInFlight )
+			{//it's still out there somewhere, don't add it
+				//FIXME: call it back?
+				continue;
+			}
+		}
+		else if ( ent->client->ps.saber[saberNum].holsterPlace == HOLSTER_NONE )
+		{
+			continue;
+		}
+		int handBolt = -1;
+		holster_locations_t holsterPlace = ent->client->ps.saber[saberNum].holsterPlace;
+		vec3_t offset = { 0.0f, 0.0f, 0.0f };
+		vec3_t angles = { 0.0f, 0.0f, 0.0f };
+		if ( holsterPlace == HOLSTER_HIPS )
+		{
+			angles[PITCH] = 180.0f;
+			angles[YAW] = 0.0f;
+			angles[ROLL] = 180.0f;
+			if (g_flippedHolsters && g_flippedHolsters->integer > 0)
+			{
+				angles[YAW] = 180.0f;
+			}
+			VectorSet(offset, 0.0f, -1.0f, -5.0f);
+		}
+		else if ( holsterPlace == HOLSTER_BACK )
+		{
+			angles[YAW] = 180.0f;
+			angles[PITCH] = 22.5f;
+			VectorSet(offset, 0.0f, -2.0f, 4.0f);
+		}
+		if ( saberNum == 0 )
+		{
+			if ( holsterPlace == HOLSTER_LHIP )
+			{
+				handBolt = gi.G2API_AddBolt( &ent->ghoul2[ent->playerModel], "*hip_l" );
+			}
+			else if ( holsterPlace == HOLSTER_HIPS )
+			{
+				handBolt = gi.G2API_AddBolt( &ent->ghoul2[ent->playerModel], "*hip_r" );
+			}
+			else if ( holsterPlace == HOLSTER_BACK )
+			{
+				handBolt = gi.G2API_AddBolt( &ent->ghoul2[ent->playerModel], "*back" );
+			}
+		}
+		else
+		{
+			if ( holsterPlace == HOLSTER_HIPS || holsterPlace == HOLSTER_LHIP )
+			{
+				if ( ent->client->ps.saber[0].holsterPlace == HOLSTER_LHIP )
+				{
+					handBolt = gi.G2API_AddBolt( &ent->ghoul2[ent->playerModel], "*hip_r" );
+				}
+				else
+				{
+					handBolt = gi.G2API_AddBolt( &ent->ghoul2[ent->playerModel], "*hip_l" );
+				}
+			}
+			else if ( holsterPlace == HOLSTER_BACK )
+			{
+				if ( ent->client->ps.saber[0].holsterPlace == HOLSTER_BACK )
+				{
+					continue;
+				}
+				handBolt = gi.G2API_AddBolt( &ent->ghoul2[ent->playerModel], "*back" );
+			}
+		}
+		G_CreateG2HolsteredWeaponModel( ent, ent->client->ps.saber[saberNum].model, handBolt, saberNum, angles, offset );
+		
+        gi.G2API_SetTintType( &ent->ghoul2[ent->holsterModel[saberNum]], saberNum ? G2_TINT_SABER2 : G2_TINT_SABER );
+        
+		if ( ent->client->ps.saber[saberNum].skin != NULL )
+		{//if this saber has a customSkin, use it
+			// lets see if it's out there
+			int saberSkin = gi.RE_RegisterSkin( ent->client->ps.saber[saberNum].skin );
+			if ( saberSkin )
+			{
+				// put it in the config strings
+				// and set the ghoul2 model to use it
+				gi.G2API_SetSkin( &ent->ghoul2[ent->holsterModel[saberNum]], G_SkinIndex( ent->client->ps.saber[saberNum].skin ), saberSkin );
+			}
+		}
+	}
+}
+
 //----------------------------------------------------------
 void G_Throw( gentity_t *targ, const vec3_t newDir, float push )
 //----------------------------------------------------------
@@ -7235,6 +7350,85 @@ void WP_SaberThrow( gentity_t *self, usercmd_t *ucmd )
 	}
 }
 
+extern void	G_CreateG2AttachedWeaponModel( gentity_t *ent, const char *weaponModel, int boltNum, int weaponNum );
+void WP_SaberFireGun( gentity_t *self, usercmd_t *ucmd, int whichGun )
+{
+	int addTime, oldWeapon;
+	qboolean chargedShot = qfalse;
+	
+	if ( self->health <= 0 )
+	{
+		return;
+	}
+	
+	if ( !self->s.number && (cg.zoomMode || in_camera) )
+	{//can't shoot when zoomed in or in cinematic
+		return;
+	}
+	
+	if ( self->client->ps.leanofs )
+	{
+		return;
+	}
+	
+	if ( self->client->ps.weaponTime > 0 )
+	{
+		return;
+	}
+	
+	if ( self->client->ps.saberAnimLevel != SS_KATARN )
+	{
+		return;
+	}
+	
+	if ( self->s.weapon != WP_SABER )
+	{
+		return;
+	}
+	
+	if ( !(self->client->ps.weapons[whichGun]) )
+	{
+		return;
+	}
+	
+	if ( !(ucmd->buttons & BUTTON_ALT_ATTACK) )
+	{
+		return;
+	}
+	
+	if ( !self->weaponModel[1] || (self->weaponModel[1] == -1) )
+	{
+		G_CreateG2AttachedWeaponModel( self, weaponData[whichGun].worldModel, self->handLBolt, 1 );
+	}
+	
+	addTime = weaponData[whichGun].fireTime;
+	self->client->ps.weaponTime += addTime;
+	self->client->ps.lastShotTime = level.time;
+//TODO:proper addTime scaling
+	
+	if ( whichGun == WP_BRYAR_PISTOL && self->client->ps.saberLockTime > level.time )
+	{
+		//shoot your way out of saberlocks!
+		G_StartMatrixEffect( self );
+		chargedShot = qtrue;
+		self->client->ps.weaponChargeTime = level.time - 10*BRYAR_CHARGE_UNIT;
+	}
+	
+	self->client->ps.saberBlocked = BLOCKED_NONE;
+	self->client->ps.saberMove = self->client->ps.saberBounceMove = LS_READY;
+	NPC_SetAnim( self, SETANIM_TORSO, BOTH_FORCELIGHTNING, SETANIM_FLAG_OVERRIDE|SETANIM_FLAG_HOLD|SETANIM_FLAG_RESTART );
+	
+	oldWeapon = self->s.weapon;
+	self->s.weapon = whichGun;
+	FireWeapon(self, chargedShot);
+	
+	cg_entities[self->s.number].muzzleFlashTime = level.time;
+	cg_entities[self->s.number].muzzleFlashWeapon = whichGun;
+	
+	self->s.weapon = oldWeapon;
+}
+
+
 
 //SABER BLOCKING============================================================================
 //SABER BLOCKING============================================================================
@@ -8258,7 +8452,7 @@ void WP_DropWeapon( gentity_t *dropper, vec3_t velocity )
 		}
 	}
 	//FIXME: does this work on the player?
-	dropper->client->ps.stats[STAT_WEAPONS] |= ( 1 << replaceWeap );
+	dropper->client->ps.weapons[replaceWeap] = 1;
 	if ( !dropper->s.number )
 	{
 		if ( oldWeap == WP_THERMAL )
@@ -8267,13 +8461,13 @@ void WP_DropWeapon( gentity_t *dropper, vec3_t velocity )
 		}
 		else
 		{
-			dropper->client->ps.stats[STAT_WEAPONS] &= ~( 1 << oldWeap );
+			dropper->client->ps.weapons[oldWeap] = 0;
 		}
 		CG_ChangeWeapon( replaceWeap );
 	}
 	else
 	{
-		dropper->client->ps.stats[STAT_WEAPONS] &= ~( 1 << oldWeap );
+		dropper->client->ps.weapons[oldWeap] = 0;
 	}
 	ChangeWeapon( dropper, replaceWeap );
 	dropper->s.weapon = replaceWeap;
