@@ -8012,19 +8012,19 @@ extern vmCvar_t	cg_thirdPersonAlpha;
 								{
 									vec3_t org_;
 									vec3_t	RGB	= {1.0f,0.75f,0.0f};
-									
+
 									CG_RGBForSaberColor( cent->gent->client->ps.saber[saberNum].blade[bladeNum].color, RGB );
 									char *tagName = va( "*blade%d", bladeNum+1 );
 									int bolt = gi.G2API_AddBolt( &cent->gent->ghoul2[cent->gent->weaponModel[saberNum]], tagName );
 									mdxaBone_t	boltMatrix;
 									gi.G2API_GetBoltMatrix(cent->gent->ghoul2, cent->gent->weaponModel[saberNum], bolt, &boltMatrix, tempAngles, ent.origin, cg.time, cgs.model_draw, cent->currentState.modelScale);
-									
+
 									// work the matrix axis stuff into the original axis and origins used.
 									gi.G2API_GiveMeVectorFromMatrix(boltMatrix, ORIGIN, org_);
-									
+
 									qhandle_t shader = cgi_R_RegisterShader( "gfx/effects/flare1" );
-									
-									FX_AddSprite( org_, cent->gent->client->ps.velocity, NULL, 40.0f, 0.0f, 1.0f, 0.7f, RGB, RGB, random() * 360, 0.0f, 100.0f, shader, FX_USE_ALPHA );
+
+									FX_AddSprite( org_, cent->gent->client->ps.velocity, NULL, 40.0f, 0.0f, 1.0f, 0.7f, RGB, RGB, Q_flrand(0.0f, 1.0f) * 360, 0.0f, 100.0f, shader, FX_USE_ALPHA );
 								}
 
 							}
