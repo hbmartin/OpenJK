@@ -5792,38 +5792,56 @@ void CG_DoSFXSaber( vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t
 		case SABER_RED:
 			glow = cgs.media.redSaberGlowShader;
 			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
+			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
+			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
 		case SABER_ORANGE:
 			glow = cgs.media.orangeSaberGlowShader;
 			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
+			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
+			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
 		case SABER_YELLOW:
 			glow = cgs.media.yellowSaberGlowShader;
 			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
+			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
+			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
 		case SABER_GREEN:
 			glow = cgs.media.greenSaberGlowShader;
 			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
+			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
+			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
 		case SABER_PURPLE:
 			glow = cgs.media.purpleSaberGlowShader;
 			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
+			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
+			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
 		case SABER_BLUE:
 			glow = cgs.media.blueSaberGlowShader;
 			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
+			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
+			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
 		case SABER_UNSTABLE_RED:
 			glow = cgs.media.redSaberGlowShader;
 			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade_unstable");
+			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
+			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
 		case SABER_BLACK:
 			glow = cgs.media.blackSaberGlowShader;
 			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade_black");
+			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end_black");
+			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail_black");
 			break;
 		default://SABER_RGB
 			glow = cgs.media.rgbSaberGlowShader;
 			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
+			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
+			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
 	}
 	
