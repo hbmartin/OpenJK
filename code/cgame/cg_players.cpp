@@ -5634,6 +5634,9 @@ static void CG_RGBForSaberColor( saber_colors_t color, vec3_t rgb )
 		case SABER_UNSTABLE_RED:
 			VectorSet(rgb, 1.0f, 0.2f, 0.2f);
 			break;
+		case SABER_BLACK:
+			VectorSet(rgb, 1.0f, 1.0f, 1.0f );
+			break;
 		default://SABER_RGB
 			VectorSet( rgb, ((color) & 0xff)/255.0f, ((color >> 8) & 0xff)/255.0f, ((color >> 16) & 0xff)/255.0f );
 			break;
@@ -5813,6 +5816,10 @@ void CG_DoSFXSaber( vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t
 		case SABER_UNSTABLE_RED:
 			glow = cgs.media.redSaberGlowShader;
 			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade_unstable");
+			break;
+		case SABER_BLACK:
+			glow = cgs.media.blackSaberGlowShader;
+			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade_black");
 			break;
 		default://SABER_RGB
 			glow = cgs.media.rgbSaberGlowShader;
@@ -6179,6 +6186,10 @@ static void CG_DoSaber( vec3_t origin, vec3_t dir, float length, float lengthMax
 		case SABER_UNSTABLE_RED:
 			glow = cgs.media.unstableRedSaberGlowShader;
 			blade = cgs.media.unstableRedSaberCoreShader;
+			break;
+		case SABER_BLACK:
+			glow = cgs.media.blackSaberGlowShader;
+			blade = cgs.media.blackSaberCoreShader;
 			break;
 		default://SABER_RGB
 			glow = cgs.media.rgbSaberGlowShader;
@@ -7036,6 +7047,9 @@ if (cg_SFXSabers.integer == 0)
 						case SABER_UNSTABLE_RED:
 							VectorSet(rgb1, 255.0f, 0.0f, 0.0f);
 							break;
+						case SABER_BLACK:
+							VectorSet( rgb1, 255.0f, 255.0f, 255.0f );
+							break;
 						default://SABER_RGB
 							VectorSet( rgb1, ((client->ps.saber[saberNum].blade[bladeNum].color) & 0xff),
 									  ((client->ps.saber[saberNum].blade[bladeNum].color >> 8) & 0xff),
@@ -7247,7 +7261,10 @@ else
 				VectorSet( rgb1, 0.0f, 0.0f, 255.0f );
 				break;
 			case SABER_UNSTABLE_RED:
-				VectorSet(rgb1, 255.0f, 0.0f, 0.0f);
+				VectorSet(rgb1, 255.0f, 0.0f, 0.0f);		
+				break;
+			case SABER_BLACK:
+				VectorSet( rgb1, 255.0f, 255.0f, 255.0f );		
 				break;
 			default://SABER_RGB
 				VectorSet( rgb1, ((client->ps.saber[saberNum].blade[bladeNum].color) & 0xff),
