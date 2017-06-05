@@ -67,7 +67,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #if JK2_MODE
 #define PRODUCT_NAME			"openjo_sp"
 
-#define CLIENT_WINDOW_TITLE "OpenJO (SP)"
+#define CLIENT_WINDOW_TITLE "Knights of the Force 2.1 SP"
 #define CLIENT_CONSOLE_TITLE "OpenJO Console (SP)"
 #define HOMEPATH_NAME_UNIX "openjo"
 #define HOMEPATH_NAME_WIN "OpenJO"
