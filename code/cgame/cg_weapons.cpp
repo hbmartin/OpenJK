@@ -624,20 +624,6 @@ void CG_RegisterWeapon( int weaponNum ) {
 	case WP_TIE_FIGHTER:
 		theFxScheduler.RegisterEffect( "ships/imp_blastershot" );
 		break;
-			
-	case WP_E5_CARBINE:
-	case WP_DC15S_CARBINE:
-	case WP_SONIC_BLASTER:
-	case WP_DC15A_RIFLE:
-	case WP_Z6_ROTARY:
-		cgs.effects.blasterShotEffect			= theFxScheduler.RegisterEffect( "blaster/shot" );
-		theFxScheduler.RegisterEffect( "blaster/NPCshot" );
-		//		cgs.effects.blasterOverchargeEffect		= theFxScheduler.RegisterEffect( "blaster/overcharge" );
-		cgs.effects.blasterWallImpactEffect		= theFxScheduler.RegisterEffect( "blaster/wall_impact" );
-		cgs.effects.blasterFleshImpactEffect	= theFxScheduler.RegisterEffect( "blaster/flesh_impact" );
-		theFxScheduler.RegisterEffect( "blaster/deflect" );
-		theFxScheduler.RegisterEffect( "blaster/smoke_bolton" ); // note: this will be called game side
-		break;
 
 	}
 }

@@ -153,13 +153,6 @@ qboolean playerUsableWeapons[WP_NUM_WEAPONS] =
 	qfalse,//WP_TUSKEN_STAFF,
 	qfalse,//WP_SCEPTER,
 	qtrue,//WP_NOGHRI_STICK,
-	
-	qtrue,//WP_SONIC_BLASTER,
-	
-	qtrue,//WP_E5_CARBINE,
-	qtrue,//WP_DC15S_CARBINE,
-	qtrue,//WP_DC15A_RIFLE,
-	qtrue,//WP_Z6_ROTARY,
 
 	//# #eol
 	//WP_NUM_WEAPONS
@@ -266,12 +259,6 @@ const int defaultDamage[] = {
 	0,							// WP_TUSKEN_STAFF
 	0,							// WP_SCEPTER
 	0,							// WP_NOGHRI_STICK
-	0,							// WP_SONIC_BLASTER,
-	
-	0,							// WP_E5_CARBINE,
-	0,							// WP_DC15S_CARBINE,
-	0,							// WP_DC15A_RIFLE,
-	0,							// WP_Z6_ROTARY,
 };
 
 const int defaultAltDamage[] = {
@@ -309,12 +296,6 @@ const int defaultAltDamage[] = {
 	0,						// WP_TUSKEN_STAFF
 	0,						// WP_SCEPTER
 	0,						// WP_NOGHRI_STICK
-	0,						// WP_SONIC_BLASTER,
-	
-	0,						// WP_E5_CARBINE,
-	0,						// WP_DC15S_CARBINE,
-	0,						// WP_DC15A_RIFLE,
-	0,						// WP_Z6_ROTARY,
 };
 
 const int defaultSplashDamage[] = {
@@ -352,12 +333,6 @@ const int defaultSplashDamage[] = {
 	0,								// WP_TUSKEN_STAFF
 	0,								// WP_SCEPTER
 	0,								// WP_NOGHRI_STICK
-	0,								// WP_SONIC_BLASTER,
-	
-	0,								// WP_E5_CARBINE,
-	0,								// WP_DC15S_CARBINE,
-	0,								// WP_DC15A_RIFLE,
-	0,								// WP_Z6_ROTARY,
 };
 
 const float defaultSplashRadius[] = {
@@ -395,12 +370,6 @@ const float defaultSplashRadius[] = {
 	0.0f,							// WP_TUSKEN_STAFF
 	0.0f,							// WP_SCEPTER
 	0.0f,							// WP_NOGHRI_STICK
-	0.0f,							// WP_SONIC_BLASTER,
-	
-	0.0f,							// WP_E5_CARBINE,
-	0.0f,							// WP_DC15S_CARBINE,
-	0.0f,							// WP_DC15A_RIFLE,
-	0.0f,							// WP_Z6_ROTARY,
 };
 
 const int defaultAltSplashDamage[] = {
@@ -438,12 +407,6 @@ const int defaultAltSplashDamage[] = {
 	0,								// WP_TUSKEN_STAFF
 	0,								// WP_SCEPTER
 	0,								// WP_NOGHRI_STICK
-	0,								// WP_SONIC_BLASTER,
-	
-	0,								// WP_E5_CARBINE,
-	0,								// WP_DC15S_CARBINE,
-	0,								// WP_DC15A_RIFLE,
-	0,								// WP_Z6_ROTARY,
 };
 
 const float defaultAltSplashRadius[] = {
@@ -481,12 +444,6 @@ const float defaultAltSplashRadius[] = {
 	0.0f,							// WP_TUSKEN_STAFF
 	0.0f,							// WP_SCEPTER
 	0.0f,							// WP_NOGHRI_STICK
-	0.0f,							// WP_SONIC_BLASTER,
-	
-	0.0f,							// WP_E5_CARBINE,
-	0.0f,							// WP_DC15S_CARBINE,
-	0.0f,							// WP_DC15A_RIFLE,
-	0.0f,							// WP_Z6_ROTARY,
 };
 
 wpnParms_t WpnParms[] =
@@ -620,16 +577,6 @@ void WPN_WeaponType( const char **holdBuf)
 		weaponNum = WP_SCEPTER;
 	else if (!Q_stricmp(tokenStr,"WP_NOGHRI_STICK"))
 		weaponNum = WP_NOGHRI_STICK;
-	else if (!Q_stricmp(tokenStr,"WP_SONIC_BLASTER"))
-		weaponNum = WP_SONIC_BLASTER;
-	else if (!Q_stricmp(tokenStr,"WP_E5_CARBINE"))
-		weaponNum = WP_E5_CARBINE;
-	else if (!Q_stricmp(tokenStr,"WP_DC15S_CARBINE"))
-		weaponNum = WP_DC15S_CARBINE;
-	else if (!Q_stricmp(tokenStr,"WP_DC15A_RIFLE"))
-		weaponNum = WP_DC15A_RIFLE;
-	else if (!Q_stricmp(tokenStr,"WP_Z6_ROTARY"))
-		weaponNum = WP_Z6_ROTARY;
 	else
 	{
 		weaponNum = 0;
