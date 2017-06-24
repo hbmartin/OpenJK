@@ -2265,10 +2265,6 @@ void CG_NextWeapon_f( void ) {
 		{
 			cg.weaponSelect = WP_MELEE;
 		}
-		else if (cg.weaponSelect == WP_MELEE)
-		{
-			cg.weaponSelect == WP_BATTLEDROID;
-		}
 		else
 		{
 			cg.weaponSelect++;
@@ -2324,10 +2320,6 @@ void CG_DPNextWeapon_f( void ) {
 		else if ( cg.DataPadWeaponSelect == WP_DET_PACK )
 		{
 			cg.DataPadWeaponSelect = WP_MELEE;
-		}
-		else if (cg.DataPadWeaponSelect == WP_MELEE)
-		{
-			cg.DataPadWeaponSelect = WP_BATTLEDROID;
 		}
 		else
 		{
@@ -2386,10 +2378,6 @@ void CG_DPPrevWeapon_f( void )
 		else if ( cg.DataPadWeaponSelect == WP_MELEE )
 		{
 			cg.DataPadWeaponSelect = WP_DET_PACK;
-		}
-		else if (cg.DataPadWeaponSelect == WP_BATTLEDROID)
-		{
-			cg.DataPadWeaponSelect = WP_MELEE;
 		}
 		else
 		{
@@ -2479,10 +2467,6 @@ void CG_PrevWeapon_f( void ) {
 		else if ( cg.weaponSelect == WP_MELEE )
 		{
 			cg.weaponSelect = WP_DET_PACK;
-		}
-		else if (cg.weaponSelect == WP_BATTLEDROID)
-		{
-			cg.weaponSelect = WP_MELEE;
 		}
 		else
 		{
