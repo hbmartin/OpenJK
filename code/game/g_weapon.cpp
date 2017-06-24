@@ -1555,7 +1555,7 @@ void FireWeapon( gentity_t *ent, qboolean alt_fire )
 		break;
 
 	case WP_BATTLEDROID:
-		WP_FireBlaster(ent, alt_fire);
+		WP_FireBattleDroid(ent, alt_fire);
 		break;
 
 	case WP_TUSKEN_STAFF:
