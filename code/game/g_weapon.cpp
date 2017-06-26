@@ -1562,7 +1562,7 @@ void FireWeapon( gentity_t *ent, qboolean alt_fire )
 		break;
 		
 	case WP_THEFIRSTORDER:
-		WP_FireBlaster(ent, alt_fire);
+		WP_FireFirstOrder(ent, alt_fire);
 		break;
 
 	case WP_TUSKEN_STAFF:
