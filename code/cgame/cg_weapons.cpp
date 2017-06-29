@@ -405,7 +405,6 @@ void CG_RegisterWeapon( int weaponNum ) {
 
 	case WP_BLASTER:
 	case WP_THEFIRSTORDER:
-	case WP_CLONECARBINE:
 	case WP_REBELBLASTER:
 		cgs.effects.blasterShotEffect			= theFxScheduler.RegisterEffect( "blaster/shot" );
 													theFxScheduler.RegisterEffect( "blaster/NPCshot" );
@@ -416,6 +415,11 @@ void CG_RegisterWeapon( int weaponNum ) {
 		theFxScheduler.RegisterEffect( "blaster/smoke_bolton" ); // note: this will be called game side
 		break;
 
+	case WP_CLONECARBINE:
+		cgs.effects.cloneShotEffect = theFxScheduler.RegisterEffect("clone/projectile");
+		cgs.effects.cloneWallImpactEffect = theFxScheduler.RegisterEffect("clone/wall_impact");
+		cgs.effects.cloneFleshImpactEffect = theFxScheduler.RegisterEffect("clone/flesh_impact");
+		break;
 	case WP_BATTLEDROID:
 		cgs.effects.blasterShotEffect = theFxScheduler.RegisterEffect("blaster/shot");
 		theFxScheduler.RegisterEffect("blaster/NPCshot");
@@ -3084,7 +3088,7 @@ void CG_MissileHitWall( centity_t *cent, int weapon, vec3_t origin, vec3_t dir, 
 		break;
 
 	case WP_CLONECARBINE:
-		FX_BlasterWeaponHitWall(origin, dir);
+		FX_CloneWeaponHitWall(origin, dir);
 		break;
 		
 	case WP_REBELBLASTER:
@@ -3241,7 +3245,7 @@ void CG_MissileHitPlayer( centity_t *cent, int weapon, vec3_t origin, vec3_t dir
 		break;
 		
 	case WP_CLONECARBINE:
-		FX_BlasterWeaponHitPlayer(other, origin, dir, humanoid);
+		FX_CloneWeaponHitPlayer(other, origin, dir, humanoid);
 		break;
 		
 	case WP_REBELBLASTER:
