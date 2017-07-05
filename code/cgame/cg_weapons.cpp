@@ -406,6 +406,7 @@ void CG_RegisterWeapon( int weaponNum ) {
 	case WP_BLASTER:
 	case WP_THEFIRSTORDER:
 	case WP_REBELBLASTER:
+	case WP_REBELRIFLE:
 		cgs.effects.blasterShotEffect			= theFxScheduler.RegisterEffect( "blaster/shot" );
 													theFxScheduler.RegisterEffect( "blaster/NPCshot" );
 //		cgs.effects.blasterOverchargeEffect		= theFxScheduler.RegisterEffect( "blaster/overcharge" );
@@ -1477,6 +1478,7 @@ const char *weaponDesc[WP_NUM_WEAPONS - 1] =
 "REBELBLASTER_DESC",
 "CLONERIFLE_DESC",
 "CLONECOMMANDO_DESC",
+"REBELRIFLE_DESC",
 };
 
 /*
@@ -3107,6 +3109,10 @@ void CG_MissileHitWall( centity_t *cent, int weapon, vec3_t origin, vec3_t dir, 
 	case WP_CLONECOMMANDO:
 		FX_CloneWeaponHitWall(origin, dir);
 		break;
+		
+	case WP_REBELRIFLE:
+		FX_BlasterWeaponHitWall(origin, dir);
+		break;
 
 	}
 }
@@ -3271,6 +3277,10 @@ void CG_MissileHitPlayer( centity_t *cent, int weapon, vec3_t origin, vec3_t dir
 		
 	case WP_CLONECOMMANDO:
 		FX_CloneWeaponHitPlayer(other, origin, dir, humanoid);
+		break;
+		
+	case WP_REBELRIFLE:
+		FX_BlasterWeaponHitPlayer(other, origin, dir, humanoid);
 		break;
 			
 	}
