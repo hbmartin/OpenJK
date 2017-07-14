@@ -406,6 +406,15 @@ void CG_RegisterWeapon( int weaponNum ) {
 		cgs.effects.bryarWallImpactEffect2	= theFxScheduler.RegisterEffect( "bryar/wall_impact2" );
 		cgs.effects.bryarWallImpactEffect3	= theFxScheduler.RegisterEffect( "bryar/wall_impact3" );
 		cgs.effects.bryarFleshImpactEffect	= theFxScheduler.RegisterEffect( "bryar/flesh_impact" );
+		
+	case WP_JANGO:
+		cgs.effects.bryarShotEffect			= theFxScheduler.RegisterEffect( "bryar/shot" );
+												theFxScheduler.RegisterEffect( "bryar/NPCshot" );
+		cgs.effects.bryarPowerupShotEffect	= theFxScheduler.RegisterEffect( "bryar/crackleShot" );
+		cgs.effects.bryarWallImpactEffect	= theFxScheduler.RegisterEffect( "bryar/wall_impact" );
+		cgs.effects.bryarWallImpactEffect2	= theFxScheduler.RegisterEffect( "bryar/wall_impact2" );
+		cgs.effects.bryarWallImpactEffect3	= theFxScheduler.RegisterEffect( "bryar/wall_impact3" );
+		cgs.effects.bryarFleshImpactEffect	= theFxScheduler.RegisterEffect( "bryar/flesh_impact" );
 
 		// Note....these are temp shared effects
 		theFxScheduler.RegisterEffect( "blaster/deflect" );
@@ -1329,6 +1338,7 @@ void CG_AddViewWeapon( playerState_t *ps )
 	if (( ps->weaponstate == WEAPON_CHARGING_ALT && ps->weapon == WP_BRYAR_PISTOL )
 			|| ( ps->weaponstate == WEAPON_CHARGING_ALT && ps->weapon == WP_BLASTER_PISTOL )
 			|| ( ps->weaponstate == WEAPON_CHARGING_ALT && ps->weapon == WP_REY )
+			|| ( ps->weaponstate == WEAPON_CHARGING_ALT && ps->weapon == WP_JANGO )
 			|| ( ps->weapon == WP_BOWCASTER && ps->weaponstate == WEAPON_CHARGING )
 			|| ( ps->weapon == WP_DEMP2 && ps->weaponstate == WEAPON_CHARGING_ALT ))
 	{
@@ -1346,6 +1356,14 @@ void CG_AddViewWeapon( playerState_t *ps )
 		
 		if ( ps->weapon == WP_REY
 			|| ps->weapon == WP_REY )
+		{
+			// Hardcoded max charge time of 1 second
+			val = ( cg.time - ps->weaponChargeTime ) * 0.001f;
+			shader = cgi_R_RegisterShader( "gfx/effects/bryarFrontFlash" );
+		}
+		
+		if ( ps->weapon == WP_JANGO
+			|| ps->weapon == WP_JANGO )
 		{
 			// Hardcoded max charge time of 1 second
 			val = ( cg.time - ps->weaponChargeTime ) * 0.001f;
@@ -1499,6 +1517,7 @@ const char *weaponDesc[WP_NUM_WEAPONS - 1] =
 "CLONECOMMANDO_DESC",
 "REBELRIFLE_DESC",
 "REY_DESC",
+"JANGO_DESC",
 };
 
 /*
@@ -3151,6 +3170,24 @@ void CG_MissileHitWall( centity_t *cent, int weapon, vec3_t origin, vec3_t dir, 
 			FX_BryarHitWall( origin, dir );
 		}
 		break;
+		
+	case WP_JANGO:
+		if ( altFire )
+		{
+			parm = 0;
+
+			if ( cent->gent )
+			{
+				parm += cent->gent->count;
+			}
+
+			FX_BryarAltHitWall( origin, dir, parm );
+		}
+		else
+		{
+			FX_BryarHitWall( origin, dir );
+		}
+		break;
 
 	}
 }
@@ -3322,6 +3359,17 @@ void CG_MissileHitPlayer( centity_t *cent, int weapon, vec3_t origin, vec3_t dir
 		break;
 		
 	case WP_REY:
+		if ( altFire )
+		{
+			FX_BryarAltHitPlayer( origin, dir, humanoid );
+		}
+		else
+		{
+			FX_BryarHitPlayer( origin, dir, humanoid );
+		}
+		break;
+		
+	case WP_JANGO:
 		if ( altFire )
 		{
 			FX_BryarAltHitPlayer( origin, dir, humanoid );

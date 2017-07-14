@@ -8290,6 +8290,7 @@ extern vmCvar_t	cg_thirdPersonAlpha;
 					*/
 					&& cent->gent->s.weapon == WP_BLASTER_PISTOL//using blaster pistol
 					&& cent->gent->s.weapon == WP_REY//using blaster pistol
+					&& cent->gent->s.weapon == WP_JANGO//using blaster pistol
 					&& cent->gent->weaponModel[1] )//one in each hand
 				{
 						
@@ -8993,6 +8994,7 @@ Ghoul2 Insert End
 		if (( ps->weaponstate == WEAPON_CHARGING_ALT && ps->weapon == WP_BRYAR_PISTOL )
 			|| ( ps->weaponstate == WEAPON_CHARGING_ALT && ps->weapon == WP_BLASTER_PISTOL )
 			|| ( ps->weaponstate == WEAPON_CHARGING_ALT && ps->weapon == WP_REY )
+			|| ( ps->weaponstate == WEAPON_CHARGING_ALT && ps->weapon == WP_JANGO )
 			|| ( ps->weapon == WP_BOWCASTER && ps->weaponstate == WEAPON_CHARGING )
 			|| ( ps->weapon == WP_DEMP2 && ps->weaponstate == WEAPON_CHARGING_ALT ))
 		{
@@ -9009,6 +9011,13 @@ Ghoul2 Insert End
 			}
 			if ( ps->weapon == WP_REY
 				|| ps->weapon == WP_REY )
+			{
+				// Hardcoded max charge time of 1 second
+				val = ( cg.time - ps->weaponChargeTime ) * 0.001f;
+				shader = cgi_R_RegisterShader( "gfx/effects/bryarFrontFlash" );
+			}
+			if ( ps->weapon == WP_JANGO
+				|| ps->weapon == WP_JANGO )
 			{
 				// Hardcoded max charge time of 1 second
 				val = ( cg.time - ps->weaponChargeTime ) * 0.001f;
