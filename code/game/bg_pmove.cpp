@@ -8984,7 +8984,7 @@ static void PM_FinishWeaponChange( void ) {
 	{
 		trueSwitch = qfalse;
 	}
-	
+
 	if ( trueSwitch && pm->ps->weapon == WP_EMPLACED_GUN && !(pm->ps->eFlags & EF_LOCKED_TO_WEAPON) )
 	{
 		gitem_t *item;
@@ -8998,7 +8998,7 @@ static void PM_FinishWeaponChange( void ) {
 		pm->ps->ammo[AMMO_EMPLACED] = 0;
 		pm->ps->weapons[WP_EMPLACED_GUN] = 0;
 	}
-	
+
 	//int oldWeap = pm->ps->weapon;
 	pm->ps->weapon = weapon;
 	pm->ps->weaponstate = WEAPON_RAISING;
@@ -12925,18 +12925,8 @@ static bool PM_DoChargedWeapons( void )
 			altFire = qtrue;
 		}
 		break;
-		
-	case WP_REY:
 
-		// alt-fire charges the weapon
-		if ( pm->cmd.buttons & BUTTON_ALT_ATTACK )
-		{
-			charging = qtrue;
-			altFire = qtrue;
-		}
-		break;
-		
-	case WP_JANGO:
+	case WP_REY:
 
 		// alt-fire charges the weapon
 		if ( pm->cmd.buttons & BUTTON_ALT_ATTACK )
@@ -13516,7 +13506,7 @@ static void PM_Weapon( void )
 					PM_SetAnim(pm,SETANIM_TORSO,TORSO_WEAPONIDLE2,SETANIM_FLAG_NORMAL);
 				}
 				break;
-				
+
 			case WP_REY:
 				if ( pm->gent
 					&& pm->gent->weaponModel[1] > 0 )
@@ -13529,7 +13519,7 @@ static void PM_Weapon( void )
 					PM_SetAnim(pm,SETANIM_TORSO,TORSO_WEAPONIDLE2,SETANIM_FLAG_NORMAL);
 				}
 				break;
-				
+
 			case WP_JANGO:
 				if ( pm->gent
 					&& pm->gent->weaponModel[1] > 0 )
@@ -13542,7 +13532,7 @@ static void PM_Weapon( void )
 					PM_SetAnim(pm,SETANIM_TORSO,TORSO_WEAPONIDLE2,SETANIM_FLAG_NORMAL);
 				}
 				break;
-				
+
 				default:
 					PM_SetAnim(pm,SETANIM_TORSO,TORSO_WEAPONIDLE3,SETANIM_FLAG_NORMAL);
 					break;
@@ -13719,8 +13709,8 @@ static void PM_Weapon( void )
 					PM_SetAnim(pm,SETANIM_TORSO,BOTH_ATTACK2,SETANIM_FLAG_OVERRIDE|SETANIM_FLAG_RESTART|SETANIM_FLAG_HOLD);
 				}
 				break;
-				
-				
+
+
 			case WP_REY:
 				if ( pm->gent && pm->gent->weaponModel[1] > 0 )
 				{//dual pistols
@@ -13731,8 +13721,8 @@ static void PM_Weapon( void )
 					PM_SetAnim(pm,SETANIM_TORSO,BOTH_ATTACK2,SETANIM_FLAG_OVERRIDE|SETANIM_FLAG_RESTART|SETANIM_FLAG_HOLD);
 				}
 				break;
-				
-				
+
+
 			case WP_JANGO:
 				if ( pm->gent && pm->gent->weaponModel[1] > 0 )
 				{//dual pistols

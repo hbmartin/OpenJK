@@ -76,15 +76,15 @@ float weaponSpeed[WP_NUM_WEAPONS][2] =
 	{ 0,0 },//WP_TUSKEN_STAFF,
 	{ 0,0 },//WP_SCEPTER,
 	{ 0,0 },//WP_NOGHRI_STICK,
-	{ BLASTER_VELOCITY, BLASTER_VELOCITY }, // WP_BATTLEDROID, 
-	{ BLASTER_VELOCITY, BLASTER_VELOCITY },// WP_THEFIRSTORDER, 
-	{ BLASTER_VELOCITY, BLASTER_VELOCITY },// WP_CLONECARBINE, 
+	{ BLASTER_VELOCITY, BLASTER_VELOCITY }, // WP_BATTLEDROID,
+	{ BLASTER_VELOCITY, BLASTER_VELOCITY },// WP_THEFIRSTORDER,
+	{ BLASTER_VELOCITY, BLASTER_VELOCITY },// WP_CLONECARBINE,
 	{ CLONERIFLE_VELOCITY, CLONERIFLE_VELOCITY },// WP_CLONERIFLE
 	{ REBELBLASTER_VELOCITY, REBELBLASTER_VELOCITY },// WP_REBELBLASTER
 	{ CLONECOMMANDO_VELOCITY, CLONECOMMANDO_VELOCITY },// WP_CLONECOMMANDO
 	{ REBELRIFLE_VELOCITY, REBELRIFLE_VELOCITY },// WP_REBELRIFLE
 	{ REY_VEL,REY_VEL },//WP_REY,
-	{ JANGO_VEL,JANGO_VEL },//WP_JANGO,
+	{ JANGO_VELOCITY, JANGO_VELOCITY },// WP_JANGO
 
 };
 
@@ -541,7 +541,7 @@ void CalcMuzzlePoint( gentity_t *const ent, vec3_t forwardVec, vec3_t right, vec
 
 		VectorMA(muzzlePoint, 1, vrightVec, muzzlePoint);
 		break;
-		
+
 	case WP_REBELBLASTER:
 		ViewHeightFix(ent);
 		muzzlePoint[2] += ent->client->ps.viewheight;//By eyes
@@ -553,7 +553,7 @@ void CalcMuzzlePoint( gentity_t *const ent, vec3_t forwardVec, vec3_t right, vec
 
 		VectorMA(muzzlePoint, 1, vrightVec, muzzlePoint);
 		break;
-		
+
 	case WP_CLONERIFLE:
 		ViewHeightFix(ent);
 		muzzlePoint[2] += ent->client->ps.viewheight;//By eyes
@@ -565,7 +565,7 @@ void CalcMuzzlePoint( gentity_t *const ent, vec3_t forwardVec, vec3_t right, vec
 
 		VectorMA(muzzlePoint, 1, vrightVec, muzzlePoint);
 		break;
-		
+
 	case WP_CLONECOMMANDO:
 		ViewHeightFix(ent);
 		muzzlePoint[2] += ent->client->ps.viewheight;//By eyes
@@ -577,7 +577,7 @@ void CalcMuzzlePoint( gentity_t *const ent, vec3_t forwardVec, vec3_t right, vec
 
 		VectorMA(muzzlePoint, 1, vrightVec, muzzlePoint);
 		break;
-		
+
 	case WP_REBELRIFLE:
 		ViewHeightFix(ent);
 		muzzlePoint[2] += ent->client->ps.viewheight;//By eyes
@@ -589,7 +589,7 @@ void CalcMuzzlePoint( gentity_t *const ent, vec3_t forwardVec, vec3_t right, vec
 
 		VectorMA(muzzlePoint, 1, vrightVec, muzzlePoint);
 		break;
-		
+
 	case WP_REY:
 		ViewHeightFix(ent);
 		muzzlePoint[2] += ent->client->ps.viewheight;//By eyes
@@ -597,15 +597,19 @@ void CalcMuzzlePoint( gentity_t *const ent, vec3_t forwardVec, vec3_t right, vec
 		VectorMA( muzzlePoint, 28, forwardVec, muzzlePoint );
 		VectorMA( muzzlePoint, 6, vrightVec, muzzlePoint );
 		break;
-		
+
 	case WP_JANGO:
 		ViewHeightFix(ent);
 		muzzlePoint[2] += ent->client->ps.viewheight;//By eyes
-		muzzlePoint[2] -= 16;
-		VectorMA( muzzlePoint, 28, forwardVec, muzzlePoint );
-		VectorMA( muzzlePoint, 6, vrightVec, muzzlePoint );
+		muzzlePoint[2] -= 1;
+		if (ent->s.number == 0)
+			VectorMA(muzzlePoint, 12, forwardVec, muzzlePoint); // player, don't set this any lower otherwise the projectile will impact immediately when your back is to a wall
+		else
+			VectorMA(muzzlePoint, 2, forwardVec, muzzlePoint); // NPC, don't set too far forwardVec otherwise the projectile can go through doors
+
+		VectorMA(muzzlePoint, 1, vrightVec, muzzlePoint);
 		break;
-		
+
 	case WP_SABER:
 		if(ent->NPC!=NULL &&
 			(ent->client->ps.torsoAnim == TORSO_WEAPONREADY2 ||
@@ -1659,35 +1663,35 @@ void FireWeapon( gentity_t *ent, qboolean alt_fire )
 	case WP_BATTLEDROID:
 		WP_FireBattleDroid(ent, alt_fire);
 		break;
-		
+
 	case WP_THEFIRSTORDER:
 		WP_FireFirstOrder(ent, alt_fire);
 		break;
-		
+
 	case WP_CLONECARBINE:
 		WP_FireClone(ent, alt_fire);
 		break;
-		
+
 	case WP_REBELBLASTER:
 		WP_FireRebelBlaster(ent, alt_fire);
 		break;
-		
+
 	case WP_CLONERIFLE:
 		WP_FireCloneRifle(ent, alt_fire);
 		break;
-		
+
 	case WP_CLONECOMMANDO:
 		WP_FireCloneCommando(ent, alt_fire);
 		break;
-		
+
 	case WP_REBELRIFLE:
 		WP_FireRebelRifle(ent, alt_fire);
 		break;
-		
+
 	case WP_REY:
 		WP_FireReyPistol(ent, alt_fire);
 		break;
-		
+
 	case WP_JANGO:
 		WP_FireJangoPistol(ent, alt_fire);
 		break;
