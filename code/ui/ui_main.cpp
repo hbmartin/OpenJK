@@ -447,34 +447,9 @@ vmCvar_t	ui_rgb_saber2_red;
 vmCvar_t	ui_rgb_saber2_green;
 vmCvar_t	ui_rgb_saber2_blue;
 
-vmCvar_t	ui_char_head_model;
-vmCvar_t	ui_char_head_skin;
-
-vmCvar_t	ui_saber_skin1;
-vmCvar_t	ui_saber_skin2;
-vmCvar_t	ui_saber_skin3;
-vmCvar_t	ui_saber_skin4;
-vmCvar_t	ui_saber_skin5;
-vmCvar_t	ui_saber2_skin1;
-vmCvar_t	ui_saber2_skin2;
-vmCvar_t	ui_saber2_skin3;
-vmCvar_t	ui_saber2_skin4;
-vmCvar_t	ui_saber2_skin5;
-
 vmCvar_t	ui_SFXSabers;
 vmCvar_t	ui_SFXSabersGlowSize;
 vmCvar_t	ui_SFXSabersCoreSize;
-
-vmCvar_t	ui_char_color_2_red;
-vmCvar_t	ui_char_color_2_green;
-vmCvar_t	ui_char_color_2_blue;
-vmCvar_t    ui_hilt_color_red;
-vmCvar_t    ui_hilt_color_green;
-vmCvar_t    ui_hilt_color_blue;
-
-vmCvar_t    ui_hilt2_color_red;
-vmCvar_t    ui_hilt2_color_green;
-vmCvar_t    ui_hilt2_color_blue;
 
 static cvarTable_t cvarTable[] =
 {
@@ -512,25 +487,6 @@ static cvarTable_t cvarTable[] =
 	{ &ui_rgb_saber2_red,		"ui_rgb_saber2_red",	"", 0},
 	{ &ui_rgb_saber2_blue,		"ui_rgb_saber2_blue",	"", 0},
 	{ &ui_rgb_saber2_green,		"ui_rgb_saber2_green",	"", 0},
-
-    { &ui_hilt_color_red,		"ui_hilt_color_red",	"", 0},
-    { &ui_hilt_color_green,		"ui_hilt_color_green",	"", 0},
-    { &ui_hilt_color_blue,		"ui_hilt_color_blue",	"", 0},
-
-    { &ui_hilt2_color_red,		"ui_hilt2_color_red",	"", 0},
-    { &ui_hilt2_color_green,	"ui_hilt2_color_green",	"", 0},
-    { &ui_hilt2_color_blue,		"ui_hilt2_color_blue",	"", 0},
-
-	{ &ui_saber_skin1,		"ui_saber_skin1",	"", 0},
-	{ &ui_saber_skin2,		"ui_saber_skin2",	"", 0},
-	{ &ui_saber_skin3,		"ui_saber_skin3",	"", 0},
-	{ &ui_saber_skin4,		"ui_saber_skin4",	"", 0},
-	{ &ui_saber_skin5,		"ui_saber_skin5",	"", 0},
-	{ &ui_saber2_skin1,		"ui_saber2_skin1",	"", 0},
-	{ &ui_saber2_skin2,		"ui_saber2_skin2",	"", 0},
-	{ &ui_saber2_skin3,		"ui_saber2_skin3",	"", 0},
-	{ &ui_saber2_skin4,		"ui_saber2_skin4",	"", 0},
-	{ &ui_saber2_skin5,		"ui_saber2_skin5",	"", 0},
 
 	{ &ui_SFXSabers,	"cg_SFXSabers",	"1", NULL, CVAR_ARCHIVE },
 	{ &ui_SFXSabersGlowSize,	"cg_SFXSabersGlowSize",	"1.0", NULL, CVAR_ARCHIVE },

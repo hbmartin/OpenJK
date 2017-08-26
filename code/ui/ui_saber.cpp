@@ -46,17 +46,6 @@ extern vmCvar_t	ui_rgb_saber2_red;
 extern vmCvar_t	ui_rgb_saber2_green;
 extern vmCvar_t	ui_rgb_saber2_blue;
 
-extern vmCvar_t	ui_saber_skin1;
-extern vmCvar_t	ui_saber_skin2;
-extern vmCvar_t	ui_saber_skin3;
-extern vmCvar_t	ui_saber_skin4;
-extern vmCvar_t	ui_saber_skin5;
-extern vmCvar_t	ui_saber2_skin1;
-extern vmCvar_t	ui_saber2_skin2;
-extern vmCvar_t	ui_saber2_skin3;
-extern vmCvar_t	ui_saber2_skin4;
-extern vmCvar_t	ui_saber2_skin5;
-
 extern vmCvar_t	ui_SFXSabers;
 extern vmCvar_t	ui_SFXSabersGlowSize;
 extern vmCvar_t	ui_SFXSabersCoreSize;
@@ -101,8 +90,6 @@ void UI_CacheSaberGlowGraphics( void )
 	blackSaberCoreShader		= re.RegisterShader( "gfx/effects/sabers/black_line" );
 	rgbSaberGlowShader		= re.RegisterShader( "gfx/effects/sabers/rgb_glow" );
 	rgbSaberCoreShader		= re.RegisterShader( "gfx/effects/sabers/rgb_line" );
-	blackSaberGlowShader		= re.RegisterShader( "gfx/effects/sabers/black_glow" );
-	blackSaberCoreShader		= re.RegisterShader( "gfx/effects/sabers/black_line" );
 	SaberBladeShader = re.RegisterShader( "SFX_Sabers/saber_blade" );
 }
 
