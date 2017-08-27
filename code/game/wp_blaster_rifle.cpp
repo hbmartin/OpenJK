@@ -812,3 +812,221 @@ void WP_FireJangoPistol(gentity_t *ent, qboolean alt_fire)
 	// FIXME: if temp_org does not have clear trace to inside the bbox, don't shoot!
 	WP_FireJangoPistolMissile(ent, muzzle, dir, alt_fire);
 }
+
+//---------------
+//	EE-3 Carbine Rifle
+//---------------
+
+//---------------------------------------------------------
+void WP_FireBobaRifleMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire )
+//---------------------------------------------------------
+{
+	if (!altFire)
+	{
+	int velocity	= BOBA_VELOCITY;
+	int	damage		= altFire ? weaponData[WP_BOBA].altDamage : weaponData[WP_BOBA].damage;
+
+	if ( ent && ent->client && ent->client->NPC_class == CLASS_VEHICLE )
+	{
+		damage *= 3;
+		velocity = ATST_MAIN_VEL + ent->client->ps.speed;
+	}
+	else
+	{
+		// If an enemy is shooting at us, lower the velocity so you have a chance to evade
+		if ( ent->client && ent->client->ps.clientNum != 0 && ent->client->NPC_class != CLASS_BOBAFETT )
+		{
+			if ( g_spskill->integer < 2 )
+			{
+				velocity *= BOBA_NPC_VEL_CUT;
+			}
+			else
+			{
+				velocity *= BOBA_NPC_HARD_VEL_CUT;
+			}
+		}
+	}
+
+	WP_TraceSetStart( ent, start, vec3_origin, vec3_origin );//make sure our start point isn't on the other side of a wall
+
+	WP_MissileTargetHint(ent, start, dir);
+
+	gentity_t *missile = CreateMissile( start, dir, velocity, 10000, ent, altFire );
+
+	missile->classname = "blaster_proj";
+	missile->s.weapon = WP_BOBA;
+
+	// Do the damages
+	if ( ent->s.number != 0 && ent->client->NPC_class != CLASS_BOBAFETT )
+	{
+		if ( g_spskill->integer == 0 )
+		{
+			damage = BOBA_NPC_DAMAGE_EASY;
+		}
+		else if ( g_spskill->integer == 1 )
+		{
+			damage = BOBA_NPC_DAMAGE_NORMAL;
+		}
+		else
+		{
+			damage = BOBA_NPC_DAMAGE_HARD;
+		}
+	}
+
+//	if ( ent->client )
+//	{
+//		if ( ent->client->ps.powerups[PW_WEAPON_OVERCHARGE] > 0 && ent->client->ps.powerups[PW_WEAPON_OVERCHARGE] > cg.time )
+//		{
+//			// in overcharge mode, so doing double damage
+//			missile->flags |= FL_OVERCHARGED;
+//			damage *= 2;
+//		}
+//	}
+
+	missile->damage = damage;
+	missile->dflags = DAMAGE_DEATH_KNOCKBACK;
+
+/*	if (altFire)
+	{
+		missile->methodOfDeath = MOD_BOBA_ALT;
+	}
+	else*/
+//	{
+		missile->methodOfDeath = MOD_BOBA;
+//	}
+
+	missile->clipmask = MASK_SHOT | CONTENTS_LIGHTSABER;
+
+	// we don't want it to bounce forever
+	missile->bounceCount = 8;
+	}
+
+	else if (altFire)
+	{
+		int			damage = weaponData[WP_BOBA].damage, count;
+		float		vel;
+		vec3_t		 angs; // dir, angs; , start;
+		gentity_t	*missile;
+
+		VectorCopy(muzzle, start);
+		WP_TraceSetStart(ent, start, vec3_origin, vec3_origin);//make sure our start point isn't on the other side of a wall
+
+		// Do the damages
+		if (ent->s.number != 0)
+		{
+			if (g_spskill->integer == 0)
+			{
+				damage = BOBA_NPC_DAMAGE_EASY;
+			}
+			else if (g_spskill->integer == 1)
+			{
+				damage = BOBA_NPC_DAMAGE_NORMAL;
+			}
+			else
+			{
+				damage = BOBA_NPC_DAMAGE_HARD;
+			}
+		}
+			count = 3;
+
+			//	if ( ent->client && ent->client->ps.powerups[PW_WEAPON_OVERCHARGE] > 0 && ent->client->ps.powerups[PW_WEAPON_OVERCHARGE] > cg.time )
+			//	{
+			//		// in overcharge mode, so doing double damage
+			//		damage *= 2;
+			//	}
+
+			WP_MissileTargetHint(ent, start, forwardVec);
+			for (int i = 0; i < count; i++)
+			{
+				// create a range of different velocities
+				vel = BOBA_VELOCITY * (i + 1);
+
+				vectoangles(forwardVec, angs);
+
+				if (!(ent->client->ps.forcePowersActive&(1 << FP_SEE))
+					|| ent->client->ps.forcePowerLevel[FP_SEE] < FORCE_LEVEL_2)
+				{//force sight 2+ gives perfect aim
+					//FIXME: maybe force sight level 3 autoaims some?
+					// add some slop to the fire direction
+					angs[PITCH] += Q_flrand(-0.1f, 0.1f) * BOBA_ALT_SPREAD * 0.2f;
+					angs[YAW] += Q_flrand(-0.1f, 0.1f) * i;//((i + 0.5f) * BOBA_ALT_SPREAD - count * 0.5f * BOBA_ALT_SPREAD);
+					if (ent->NPC)
+					{
+						angs[PITCH] += (Q_flrand(-0.1f, 0.1f) * (BOBA_NPC_SPREAD + (6 - ent->NPC->currentAim)*0.25f));
+						angs[YAW] += (Q_flrand(-0.1f, 0.1f) * (BOBA_NPC_SPREAD + (6 - ent->NPC->currentAim)*0.25f));
+					}
+				}
+
+				AngleVectors(angs, dir, NULL, NULL);
+
+				missile = CreateMissile(start, dir, vel, 10000, ent);
+
+				missile->classname = "blaster_proj";
+				missile->s.weapon = WP_BOBA;
+
+				//VectorSet(missile->maxs, BOWCASTER_SIZE, BOWCASTER_SIZE, BOWCASTER_SIZE);
+				//VectorScale(missile->maxs, -1, missile->mins);
+
+				//		if ( ent->client && ent->client->ps.powerups[PW_WEAPON_OVERCHARGE] > 0 && ent->client->ps.powerups[PW_WEAPON_OVERCHARGE] > cg.time )
+				//		{
+				//			missile->flags |= FL_OVERCHARGED;
+				//		}
+
+				missile->damage = damage;
+				missile->dflags = DAMAGE_DEATH_KNOCKBACK;
+				missile->methodOfDeath = MOD_BOBA;
+				missile->clipmask = MASK_SHOT | CONTENTS_LIGHTSABER;
+
+				missile->bounceCount = 8;
+				ent->client->sess.missionStats.shotsFired++;
+		}
+
+	}
+}
+
+//---------------------------------------------------------
+void WP_FireBobaRifle( gentity_t *ent, qboolean alt_fire )
+//---------------------------------------------------------
+{
+	vec3_t	dir, angs;
+
+	vectoangles( forwardVec, angs );
+
+	if ( ent->client && ent->client->NPC_class == CLASS_VEHICLE )
+	{//no inherent aim screw up
+	}
+	else if ( !(ent->client->ps.forcePowersActive&(1<<FP_SEE))
+		|| ent->client->ps.forcePowerLevel[FP_SEE] < FORCE_LEVEL_2 )
+	{//force sight 2+ gives perfect aim
+		//FIXME: maybe force sight level 3 autoaims some?
+		if ( alt_fire )
+		{
+			// add some slop to the alt-fire direction
+			angs[PITCH] += Q_flrand(-1.0f, 1.0f) * BOBA_ALT_SPREAD;
+			angs[YAW]	+= Q_flrand(-1.0f, 1.0f) * BOBA_ALT_SPREAD;
+		}
+		else
+		{
+			// Troopers use their aim values as well as the gun's inherent inaccuracy
+			// so check for all classes of stormtroopers and anyone else that has aim error
+			if ( ent->client && ent->NPC &&
+				( ent->client->NPC_class == CLASS_STORMTROOPER ||
+				ent->client->NPC_class == CLASS_SWAMPTROOPER ) )
+			{
+				angs[PITCH] += ( Q_flrand(-1.0f, 1.0f) * (BOBA_NPC_SPREAD+(6-ent->NPC->currentAim)*0.25f));//was 0.5f
+				angs[YAW]	+= ( Q_flrand(-1.0f, 1.0f) * (BOBA_NPC_SPREAD+(6-ent->NPC->currentAim)*0.25f));//was 0.5f
+			}
+			else
+			{
+				// add some slop to the main-fire direction
+				angs[PITCH] += Q_flrand(-1.0f, 1.0f) * BOBA_MAIN_SPREAD;
+				angs[YAW]	+= Q_flrand(-1.0f, 1.0f) * BOBA_MAIN_SPREAD;
+			}
+		}
+	}
+
+	AngleVectors( angs, dir, NULL, NULL );
+
+	// FIXME: if temp_org does not have clear trace to inside the bbox, don't shoot!
+	WP_FireBobaRifleMissile( ent, muzzle, dir, alt_fire );
+}
