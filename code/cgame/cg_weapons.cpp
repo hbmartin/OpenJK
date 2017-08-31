@@ -437,7 +437,10 @@ void CG_RegisterWeapon( int weaponNum ) {
 
 	case WP_CLONEPISTOL:
 		cgs.effects.cloneShotEffect = theFxScheduler.RegisterEffect("clone/projectile");
+		cgs.effects.clonePowerupShotEffect = theFxScheduler.RegisterEffect("clone/crackleShot");
 		cgs.effects.cloneWallImpactEffect = theFxScheduler.RegisterEffect("clone/wall_impact");
+		cgs.effects.cloneWallImpactEffect2 = theFxScheduler.RegisterEffect("clone/wall_impact2");
+		cgs.effects.cloneWallImpactEffect3 = theFxScheduler.RegisterEffect("clone/wall_impact3");
 		cgs.effects.cloneFleshImpactEffect = theFxScheduler.RegisterEffect("clone/flesh_impact");
 		break;
 
