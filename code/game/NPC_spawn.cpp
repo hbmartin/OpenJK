@@ -477,6 +477,7 @@ void NPC_SetMiscDefaultData( gentity_t *ent )
 				{//dual blaster pistols, so add the left-hand one, too
 					G_CreateG2AttachedWeaponModel(ent, weaponData[ent->client->ps.weapon].weaponMdl, ent->handLBolt, 1);
 				}
+				break;
 			case WP_DISRUPTOR:
 			case WP_BOWCASTER:
 			case WP_REPEATER:
