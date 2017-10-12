@@ -35,7 +35,6 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 vec3_t	forwardVec, vrightVec, up;
 vec3_t	muzzle;
-
 gentity_t *ent_list[MAX_GENTITIES];
 extern cvar_t	*g_debugMelee;
 
@@ -1727,8 +1726,19 @@ void FireWeapon( gentity_t *ent, qboolean alt_fire )
 		break;
 
 	case WP_BOBA:
-		WP_FireBobaRifle(ent, alt_fire);
-		break;
+		if (alt_fire)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				WP_FireBobaRifle(ent, alt_fire);
+			}
+			break;
+		}
+		else
+		{
+			WP_FireBobaRifle(ent, alt_fire);
+			break;
+		}
 
 	case WP_CLONEPISTOL:
 		WP_FireClonePistol(ent, alt_fire);

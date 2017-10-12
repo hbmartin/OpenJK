@@ -25,8 +25,6 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "g_functions.h"
 #include "wp_saber.h"
 #include "w_local.h"
-
-
 //---------------
 //	Blaster
 //---------------
@@ -821,10 +819,13 @@ void WP_FireJangoPistol(gentity_t *ent, qboolean alt_fire)
 void WP_FireBobaRifleMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire )
 //---------------------------------------------------------
 {
-	if (!altFire)
-	{
 	int velocity	= BOBA_VELOCITY;
 	int	damage		= altFire ? weaponData[WP_BOBA].altDamage : weaponData[WP_BOBA].damage;
+
+	if (altFire)
+	{
+		velocity = Q_irand(1500, 3000);
+	}
 
 	if ( ent && ent->client && ent->client->NPC_class == CLASS_VEHICLE )
 	{
@@ -898,90 +899,7 @@ void WP_FireBobaRifleMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean
 	missile->clipmask = MASK_SHOT | CONTENTS_LIGHTSABER;
 
 	// we don't want it to bounce forever
-	missile->bounceCount = 8;
-	}
-
-	else if (altFire)
-	{
-		int			damage = weaponData[WP_BOBA].damage, count;
-		float		vel;
-		vec3_t		 angs; // dir, angs; , start;
-		gentity_t	*missile;
-
-		VectorCopy(muzzle, start);
-		WP_TraceSetStart(ent, start, vec3_origin, vec3_origin);//make sure our start point isn't on the other side of a wall
-
-		// Do the damages
-		if (ent->s.number != 0)
-		{
-			if (g_spskill->integer == 0)
-			{
-				damage = BOBA_NPC_DAMAGE_EASY;
-			}
-			else if (g_spskill->integer == 1)
-			{
-				damage = BOBA_NPC_DAMAGE_NORMAL;
-			}
-			else
-			{
-				damage = BOBA_NPC_DAMAGE_HARD;
-			}
-		}
-			count = 3;
-
-			//	if ( ent->client && ent->client->ps.powerups[PW_WEAPON_OVERCHARGE] > 0 && ent->client->ps.powerups[PW_WEAPON_OVERCHARGE] > cg.time )
-			//	{
-			//		// in overcharge mode, so doing double damage
-			//		damage *= 2;
-			//	}
-
-			WP_MissileTargetHint(ent, start, forwardVec);
-			for (int i = 0; i < count; i++)
-			{
-				// create a range of different velocities
-				vel = BOBA_VELOCITY * (i + 1);
-
-				vectoangles(forwardVec, angs);
-
-				if (!(ent->client->ps.forcePowersActive&(1 << FP_SEE))
-					|| ent->client->ps.forcePowerLevel[FP_SEE] < FORCE_LEVEL_2)
-				{//force sight 2+ gives perfect aim
-					//FIXME: maybe force sight level 3 autoaims some?
-					// add some slop to the fire direction
-					angs[PITCH] += Q_flrand(-0.1f, 0.1f) * BOBA_ALT_SPREAD * 0.2f;
-					angs[YAW] += Q_flrand(-0.1f, 0.1f) * i;//((i + 0.5f) * BOBA_ALT_SPREAD - count * 0.5f * BOBA_ALT_SPREAD);
-					if (ent->NPC)
-					{
-						angs[PITCH] += (Q_flrand(-0.1f, 0.1f) * (BOBA_NPC_SPREAD + (6 - ent->NPC->currentAim)*0.25f));
-						angs[YAW] += (Q_flrand(-0.1f, 0.1f) * (BOBA_NPC_SPREAD + (6 - ent->NPC->currentAim)*0.25f));
-					}
-				}
-
-				AngleVectors(angs, dir, NULL, NULL);
-
-				missile = CreateMissile(start, dir, vel, 10000, ent);
-
-				missile->classname = "blaster_proj";
-				missile->s.weapon = WP_BOBA;
-
-				//VectorSet(missile->maxs, BOWCASTER_SIZE, BOWCASTER_SIZE, BOWCASTER_SIZE);
-				//VectorScale(missile->maxs, -1, missile->mins);
-
-				//		if ( ent->client && ent->client->ps.powerups[PW_WEAPON_OVERCHARGE] > 0 && ent->client->ps.powerups[PW_WEAPON_OVERCHARGE] > cg.time )
-				//		{
-				//			missile->flags |= FL_OVERCHARGED;
-				//		}
-
-				missile->damage = damage;
-				missile->dflags = DAMAGE_DEATH_KNOCKBACK;
-				missile->methodOfDeath = MOD_BOBA;
-				missile->clipmask = MASK_SHOT | CONTENTS_LIGHTSABER;
-
-				missile->bounceCount = 8;
-				ent->client->sess.missionStats.shotsFired++;
-		}
-
-	}
+	missile->bounceCount = 8;	
 }
 
 //---------------------------------------------------------
