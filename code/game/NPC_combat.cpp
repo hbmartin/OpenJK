@@ -609,7 +609,7 @@ void G_SetEnemy( gentity_t *self, gentity_t *enemy )
 			//		 Basically, you're first one to notice enemies
 			if ( self->forcePushTime < level.time ) // not currently being pushed
 			{
-				if ( !G_TeamEnemy( self ) &&  self->client->NPC_class != CLASS_BOBAFETT)
+				if (!G_TeamEnemy(self) && self->client->NPC_class != CLASS_BOBAFETT && self->client->NPC_class != CLASS_MANDALORIAN && self->client->NPC_class != CLASS_JANGO)
 				{//team did not have an enemy previously
 					if ( self->NPC
 						&& self->client->playerTeam == TEAM_PLAYER
