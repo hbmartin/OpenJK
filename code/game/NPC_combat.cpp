@@ -1489,6 +1489,10 @@ void NPC_ChangeWeapon( int newWeapon )
 		{
 			WP_SaberAddG2SaberModels( NPC );
 		}
+		else if (NPC->client->ps.weapon == WP_JANGO)
+		{
+			G_CreateG2AttachedWeaponModel(NPC, weaponData[NPC->client->ps.weapon].weaponMdl, NPC->handLBolt, 1);
+		}
 		else
 		{
 			G_CreateG2AttachedWeaponModel( NPC, weaponData[NPC->client->ps.weapon].weaponMdl, NPC->handRBolt, 0 );
