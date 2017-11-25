@@ -77,7 +77,7 @@ void UI_CacheSaberGlowGraphics( void )
 	purpleSaberCoreShader		= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/purple_line" );
 	rgbSaberGlowShader = trap->R_RegisterShaderNoMip("gfx/effects/sabers/rgb_glow");
 	rgbSaberCoreShader = trap->R_RegisterShaderNoMip("gfx/effects/sabers/rgb_line");
-	rgbSaberCore2Shader = trap->R_RegisterShaderNoMip("gfx/effects/sabers/rgb_core");
+	rgbSaberCore2Shader = trap->R_RegisterShaderNoMip("gfx/effects/sabers/rgb_line_new2");
 	unstableRedSaberGlowShader = trap->R_RegisterShaderNoMip("gfx/effects/sabers/unstable_red_glow");
 	unstableRedSaberCoreShader = trap->R_RegisterShaderNoMip("gfx/effects/sabers/unstable_red_line");
 	blackSaberGlowShader		= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/black_glow" );
