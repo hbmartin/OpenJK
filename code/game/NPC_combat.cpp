@@ -1491,6 +1491,7 @@ void NPC_ChangeWeapon( int newWeapon )
 		}
 		else if (NPC->client->ps.weapon == WP_JANGO)
 		{
+			G_CreateG2AttachedWeaponModel(NPC, weaponData[NPC->client->ps.weapon].weaponMdl, NPC->handRBolt, 0);
 			G_CreateG2AttachedWeaponModel(NPC, weaponData[NPC->client->ps.weapon].weaponMdl, NPC->handLBolt, 1);
 		}
 		else
