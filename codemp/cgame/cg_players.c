@@ -7116,6 +7116,10 @@ CheckTrail:
 								VectorSet( rgb1, 32.0f, 32.0f, 32.0f ); // make the sith sword trail pretty faint
 								trailDur *= 2.0f; // stay around twice as long?
 							}
+							else if ( SABER_BLACK )
+							{
+								fx.mShader = cgs.media.blackSaberBlurShader;
+							}
 							else
 							{
 								fx.mShader = cgs.media.saberBlurShader;
