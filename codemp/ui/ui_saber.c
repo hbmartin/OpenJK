@@ -55,7 +55,6 @@ static qhandle_t purpleSaberCoreShader;
 static qhandle_t SaberBladeShader;
 static qhandle_t rgbSaberCoreShader;
 static qhandle_t rgbSaberGlowShader;
-static qhandle_t rgbSaberCore2Shader;
 static qhandle_t unstableRedSaberGlowShader;
 static qhandle_t unstableRedSaberCoreShader;
 static qhandle_t blackSaberGlowShader;
@@ -75,9 +74,8 @@ void UI_CacheSaberGlowGraphics( void )
 	blueSaberCoreShader			= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/blue_line" );
 	purpleSaberGlowShader		= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/purple_glow" );
 	purpleSaberCoreShader		= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/purple_line" );
-	rgbSaberGlowShader = trap->R_RegisterShaderNoMip("gfx/effects/sabers/rgb_glow");
-	rgbSaberCoreShader = trap->R_RegisterShaderNoMip("gfx/effects/sabers/rgb_line");
-	rgbSaberCore2Shader = trap->R_RegisterShaderNoMip("gfx/effects/sabers/rgb_line_new2");
+	rgbSaberGlowShader 			= trap->R_RegisterShaderNoMip("gfx/effects/sabers/rgb_glow");
+	rgbSaberCoreShader 			= trap->R_RegisterShaderNoMip("gfx/effects/sabers/rgb_line");
 	unstableRedSaberGlowShader = trap->R_RegisterShaderNoMip("gfx/effects/sabers/unstable_red_glow");
 	unstableRedSaberCoreShader = trap->R_RegisterShaderNoMip("gfx/effects/sabers/unstable_red_line");
 	blackSaberGlowShader		= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/black_glow" );
@@ -694,7 +692,7 @@ void UI_DoSaber(vec3_t origin, vec3_t dir, float length, float lengthMax, float 
 	if (color != SABER_RGB)
 		return;
 
-	saber.customShader = rgbSaberCore2Shader;
+	saber.customShader = rgbSaberCoreShader;
 	saber.reType = RT_LINE;
 	saber.shaderTexCoord[0] = saber.shaderTexCoord[1] = 1.0f;
 	saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff;

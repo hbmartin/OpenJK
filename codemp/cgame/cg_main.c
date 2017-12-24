@@ -647,7 +647,6 @@ static void CG_RegisterSounds( void ) {
 
 	cgs.media.rgbSaberGlowShader = trap->R_RegisterShader("gfx/effects/sabers/rgb_glow");
 	cgs.media.rgbSaberCoreShader = trap->R_RegisterShader("gfx/effects/sabers/rgb_line");
-	cgs.media.rgbSaberCore2Shader = trap->R_RegisterShader("gfx/effects/sabers/rgb_line_new2");
 
 	cgs.media.forceCoronaShader			= trap->R_RegisterShaderNoMip( "gfx/hud/force_swirl" );
 
