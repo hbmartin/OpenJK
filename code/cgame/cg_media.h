@@ -265,10 +265,9 @@ typedef struct {
 	qhandle_t	sightShell;
 	qhandle_t	drainShader;
 
-	//SFX Sabers
-	qhandle_t SaberTrailShader;
-	qhandle_t SaberBladeShader;
-	qhandle_t SaberEndShader;
+	qhandle_t SFXSaberTrailShader;
+	qhandle_t SFXSaberBladeShader;
+	qhandle_t SFXSaberEndShader;
 
 	// sounds
 	sfxHandle_t disintegrateSound;

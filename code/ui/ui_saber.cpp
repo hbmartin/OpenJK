@@ -68,7 +68,7 @@ static qhandle_t blackSaberGlowShader;
 static qhandle_t blackSaberCoreShader;
 static qhandle_t rgbSaberGlowShader;
 static qhandle_t rgbSaberCoreShader;
-static qhandle_t SaberBladeShader;
+static qhandle_t SFXSaberBladeShader;
 
 void UI_CacheSaberGlowGraphics( void )
 {//FIXME: these get fucked by vid_restarts
@@ -386,47 +386,47 @@ void UI_DoSFXSaber( vec3_t blade_muz, vec3_t blade_dir, float lengthMax, float r
 		case SABER_RED:
 			glow = re.RegisterShader( "gfx/effects/sabers/red_glow" );
 			blade = re.RegisterShader( "gfx/effects/sabers/red_line" );
-			SaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade");
+			SFXSaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade");
 			break;
 		case SABER_ORANGE:
 			glow = re.RegisterShader( "gfx/effects/sabers/orange_glow" );
 			blade = re.RegisterShader( "gfx/effects/sabers/orange_line" );
-			SaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade");
+			SFXSaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade");
 			break;
 		case SABER_YELLOW:
 			glow = re.RegisterShader( "gfx/effects/sabers/yellow_glow" );
 			blade = re.RegisterShader( "gfx/effects/sabers/yellow_line" );
-			SaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade");
+			SFXSaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade");
 			break;
 		case SABER_GREEN:
 			glow = re.RegisterShader( "gfx/effects/sabers/green_glow" );
 			blade = re.RegisterShader( "gfx/effects/sabers/green_line" );
-			SaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade");
+			SFXSaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade");
 			break;
 		case SABER_PURPLE:
 			glow = re.RegisterShader( "gfx/effects/sabers/purple_glow" );
 			blade = re.RegisterShader( "gfx/effects/sabers/purple_line" );
-			SaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade");
+			SFXSaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade");
 			break;
 		case SABER_BLUE:
 			glow = re.RegisterShader( "gfx/effects/sabers/blue_glow" );
 			blade = re.RegisterShader( "gfx/effects/sabers/blue_line" );
-			SaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade");
+			SFXSaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade");
 			break;
 		case SABER_UNSTABLE_RED:
 			glow = re.RegisterShader("gfx/effects/sabers/unstable_red_glow");
 			blade = re.RegisterShader("gfx/effects/sabers/unstable_red_line");
-			SaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade_unstable");
+			SFXSaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade_unstable");
 			break;
 		case SABER_BLACK:
 			glow = re.RegisterShader( "gfx/effects/sabers/black_glow" );
 			blade = re.RegisterShader( "gfx/effects/sabers/black_line" );
-			SaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade_black");
+			SFXSaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade_black");
 			break;
 		default://SABER_RGB
 			glow = re.RegisterShader( "gfx/effects/sabers/rgb_glow" );
 			blade = re.RegisterShader( "gfx/effects/sabers/rgb_line" );
-			SaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade");
+			SFXSaberBladeShader = re.RegisterShader("SFX_Sabers/saber_blade");
 			break;
 	}
 
@@ -486,7 +486,7 @@ void UI_DoSFXSaber( vec3_t blade_muz, vec3_t blade_dir, float lengthMax, float r
 		VectorMA( blade_muz, blade_len, blade_dir, saber.origin );
 		VectorMA( blade_muz, -1, blade_dir, saber.oldorigin );
 
-		saber.customShader = SaberBladeShader;
+		saber.customShader = SFXSaberBladeShader;
 
 		saber.reType = RT_LINE;
 

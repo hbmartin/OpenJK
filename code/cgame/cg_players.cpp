@@ -5792,57 +5792,57 @@ void CG_DoSFXSaber( vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t
 	{
 		case SABER_RED:
 			glow = cgs.media.redSaberGlowShader;
-			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
-			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
-			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
+			cgs.media.SFXSaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
+			cgs.media.SFXSaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
+			cgs.media.SFXSaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
 		case SABER_ORANGE:
 			glow = cgs.media.orangeSaberGlowShader;
-			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
-			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
-			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
+			cgs.media.SFXSaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
+			cgs.media.SFXSaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
+			cgs.media.SFXSaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
 		case SABER_YELLOW:
 			glow = cgs.media.yellowSaberGlowShader;
-			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
-			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
-			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
+			cgs.media.SFXSaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
+			cgs.media.SFXSaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
+			cgs.media.SFXSaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
 		case SABER_GREEN:
 			glow = cgs.media.greenSaberGlowShader;
-			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
-			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
-			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
+			cgs.media.SFXSaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
+			cgs.media.SFXSaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
+			cgs.media.SFXSaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
 		case SABER_PURPLE:
 			glow = cgs.media.purpleSaberGlowShader;
-			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
-			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
-			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
+			cgs.media.SFXSaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
+			cgs.media.SFXSaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
+			cgs.media.SFXSaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
 		case SABER_BLUE:
 			glow = cgs.media.blueSaberGlowShader;
-			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
-			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
-			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
+			cgs.media.SFXSaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
+			cgs.media.SFXSaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
+			cgs.media.SFXSaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
 		case SABER_UNSTABLE_RED:
 			glow = cgs.media.redSaberGlowShader;
-			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade_unstable");
-			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
-			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
+			cgs.media.SFXSaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade_unstable");
+			cgs.media.SFXSaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
+			cgs.media.SFXSaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
 		case SABER_BLACK:
 			glow = cgs.media.blackSaberGlowShader;
-			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade_black");
-			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end_black");
-			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail_black");
+			cgs.media.SFXSaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade_black");
+			cgs.media.SFXSaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end_black");
+			cgs.media.SFXSaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail_black");
 			break;
 		default://SABER_RGB
 			glow = cgs.media.rgbSaberGlowShader;
-			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
-			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
-			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
+			cgs.media.SFXSaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
+			cgs.media.SFXSaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
+			cgs.media.SFXSaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
 	}
 
@@ -5966,7 +5966,7 @@ void CG_DoSFXSaber( vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t
 		VectorMA( blade_muz, blade_len, blade_dir, saber.origin );
 		VectorMA( blade_muz, -1, blade_dir, saber.oldorigin );
 
-		saber.customShader = cgs.media.SaberBladeShader;
+		saber.customShader = cgs.media.SFXSaberBladeShader;
 		saber.reType = RT_LINE;
 
 		saber.radius = coreradius;
@@ -6006,7 +6006,7 @@ void CG_DoSFXSaber( vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t
 		VectorMA( trail_muz, trail_len, trail_dir, saber.origin );
 		VectorMA( trail_muz, -1, trail_dir, saber.oldorigin );
 
-		saber.customShader = cgs.media.SaberBladeShader;
+		saber.customShader = cgs.media.SFXSaberBladeShader;
 		saber.reType = RT_LINE;
 
 		saber.radius = coreradius;
@@ -6050,7 +6050,7 @@ void CG_DoSFXSaber( vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t
 		VectorMA( blade_muz, base_len, base_dir, saber.origin );
 		VectorMA( blade_muz, -0.1, base_dir, saber.oldorigin );
 
-		saber.customShader = cgs.media.SaberBladeShader;
+		saber.customShader = cgs.media.SFXSaberBladeShader;
 		saber.reType = RT_LINE;
 
 		saber.radius = coreradius;
@@ -6127,7 +6127,7 @@ void CG_DoSFXSaber( vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t
 		VectorMA( blade_tip, end_len, end_dir, saber.origin );
 		VectorMA( blade_tip, -0.1, end_dir, saber.oldorigin );
 
-		saber.customShader = cgs.media.SaberEndShader;
+		saber.customShader = cgs.media.SFXSaberEndShader;
 		saber.reType = RT_LINE;
 
 		if(end_len > 9)
@@ -7321,7 +7321,7 @@ else
 			}
 			else
 			{
-				fx->mShader = cgs.media.SaberTrailShader;
+				fx->mShader = cgs.media.SFXSaberTrailShader;
 			}
 			fx->SetFlags( FX_USE_ALPHA );
 

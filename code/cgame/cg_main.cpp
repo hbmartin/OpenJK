@@ -1394,10 +1394,6 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.bdecal_burnmark1		= cgi_R_RegisterShader( "gfx/damage/burnmark1" );
 	cgs.media.bdecal_saberglowmark	= cgi_R_RegisterShader( "gfx/damage/saberglowmark" );
 	
-	cgs.media.SaberTrailShader = cgi_R_RegisterShader( "SFX_Sabers/saber_trail" );
-	cgs.media.SaberBladeShader = cgi_R_RegisterShader( "SFX_Sabers/saber_blade" );
-	cgs.media.SaberEndShader = cgi_R_RegisterShader( "SFX_Sabers/saber_end" );
-	
 	cg.loadLCARSStage = 5;
 	CG_LoadingString( "game media models" );
 
