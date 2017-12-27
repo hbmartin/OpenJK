@@ -85,7 +85,7 @@ BEGIN
             VALUE "FileVersion", VERSION_STRING
             VALUE "InternalName", "JK MP"
             VALUE "OriginalFilename", "OpenJK.exe"
-            VALUE "ProductName", "Knights of the Force 2.1 MP"
+            VALUE "ProductName", "kotf_2.1_mp"
             VALUE "ProductVersion", VERSION_STRING
         END
     END
